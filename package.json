@@ -1,0 +1,42 @@
+{
+  "name": "nutrivae-hrms",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "workspaces": [
+    "projects/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n UI,API -c cyan,green \"npm run dev -w service-nutrivae-ui\" \"npm run dev -w service-nutrivae-api\"",
+    "build": "npm run build -w @nutrivae/shared && npm run build -w service-nutrivae-api && npm run build -w service-nutrivae-ui",
+    "test": "npm run build -w @nutrivae/shared && npm run test --workspaces --if-present",
+    "typecheck": "npm run build -w @nutrivae/shared && npm run typecheck --workspaces --if-present",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test",
+    "db:generate": "prisma generate --schema packages/database/prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema packages/database/prisma/schema.prisma",
+    "db:seed": "tsx packages/database/prisma/seed.ts",
+    "db:studio": "prisma studio --schema packages/database/prisma/schema.prisma",
+    "db:bootstrap": "prisma db push --force-reset --schema packages/database/prisma/schema.prisma && npm run db:seed"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "concurrently": "^9.1.0",
+    "prisma": "^6.1.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1"
+  }
+}

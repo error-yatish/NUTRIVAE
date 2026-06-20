@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: nutrivae
+      POSTGRES_PASSWORD: nutrivae
+      POSTGRES_DB: nutrivae_hrms
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nutrivae -d nutrivae_hrms"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: projects/service-nutrivae-api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://nutrivae:nutrivae@postgres:5432/nutrivae_hrms?schema=public
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-development-access-secret-change-me}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-development-refresh-secret-change-me}
+      WEB_URL: http://localhost:5173
+      API_PORT: 4000
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: projects/service-nutrivae-ui/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:4000/api/v1
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

@@ -1,0 +1,50 @@
+:root {
+  --color-ink: #17211f;
+  --color-muted: #6b7774;
+  --color-canvas: #f5f7f6;
+  --color-surface: #fff;
+  --color-line: #e3e8e6;
+  --theme-50: #edf8f5;
+  --theme-100: #d5eee7;
+  --theme-500: #3d8f7f;
+  --theme-600: #30776b;
+  --theme-700: #285f57;
+  --theme-900: #193e39;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --shadow-card: 0 1px 2px rgba(23, 33, 31, 0.03), 0 8px 24px rgba(23, 33, 31, 0.04);
+  --shadow-modal: 0 16px 40px rgba(23, 33, 31, 0.12);
+}
+[data-theme="blue"] {
+  --theme-50: #eff6ff;
+  --theme-100: #dbeafe;
+  --theme-500: #3b82f6;
+  --theme-600: #2563eb;
+  --theme-700: #1d4ed8;
+  --theme-900: #172554;
+}
+[data-theme="pink"] {
+  --theme-50: #fdf2f8;
+  --theme-100: #fce7f3;
+  --theme-500: #ec4899;
+  --theme-600: #db2777;
+  --theme-700: #be185d;
+  --theme-900: #500724;
+}
+[data-theme="violet"] {
+  --theme-50: #f5f3ff;
+  --theme-100: #ede9fe;
+  --theme-500: #8b5cf6;
+  --theme-600: #7c3aed;
+  --theme-700: #6d28d9;
+  --theme-900: #2e1065;
+}
+[data-theme="orange"] {
+  --theme-50: #fff7ed;
+  --theme-100: #ffedd5;
+  --theme-500: #f97316;
+  --theme-600: #ea580c;
+  --theme-700: #c2410c;
+  --theme-900: #431407;
+}

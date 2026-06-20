@@ -1,0 +1,73 @@
+@import "./styles/tokens.css";
+@import "./styles/components.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+  body {
+    @apply m-0 bg-canvas font-sans text-ink antialiased;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+  ::selection {
+    background: var(--theme-100);
+    color: var(--theme-900);
+  }
+}
+.bg-brand-50 {
+  background-color: var(--theme-50) !important;
+}
+.bg-brand-100 {
+  background-color: var(--theme-100) !important;
+}
+.bg-brand-500 {
+  background-color: var(--theme-500) !important;
+}
+.bg-brand-600 {
+  background-color: var(--theme-600) !important;
+}
+.bg-brand-700 {
+  background-color: var(--theme-700) !important;
+}
+.bg-brand-900 {
+  background-color: var(--theme-900) !important;
+}
+.text-brand-500 {
+  color: var(--theme-500) !important;
+}
+.text-brand-600 {
+  color: var(--theme-600) !important;
+}
+.text-brand-700 {
+  color: var(--theme-700) !important;
+}
+.text-brand-900 {
+  color: var(--theme-900) !important;
+}
+.border-brand-500 {
+  border-color: var(--theme-500) !important;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.animate-in {
+  animation: in 0.35s ease-out both;
+}
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

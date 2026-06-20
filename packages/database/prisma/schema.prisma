@@ -1,0 +1,458 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  HR_MANAGER
+  MANAGER
+  EMPLOYEE
+}
+
+enum EmployeeStatus {
+  ACTIVE
+  ON_LEAVE
+  PROBATION
+  INACTIVE
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum GoalStatus {
+  DRAFT
+  ACTIVE
+  AT_RISK
+  COMPLETED
+}
+
+enum JobStatus {
+  DRAFT
+  OPEN
+  PAUSED
+  CLOSED
+}
+
+enum CandidateStatus {
+  APPLIED
+  SCREENING
+  INTERVIEW
+  OFFER
+  HIRED
+  REJECTED
+}
+
+enum PayoutStatus {
+  DRAFT
+  PROCESSING
+  PAID
+  FAILED
+  CANCELLED
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(EMPLOYEE)
+  isActive      Boolean        @default(true)
+  employees     Employee[]
+  refreshTokens RefreshToken[]
+  auditLogs     AuditLog[]     @relation("ActorAuditLogs")
+  memberships   CompanyMembership[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Company {
+  id            String              @id @default(uuid())
+  name          String
+  slug          String              @unique
+  logoUrl       String?
+  theme         String              @default("emerald")
+  currency      String              @default("USD")
+  country       String              @default("United States")
+  timezone      String              @default("America/New_York")
+  legalName     String?
+  registrationNumber String?
+  taxId         String?
+  website       String?
+  phone         String?
+  email         String?
+  address       String?
+  memberships   CompanyMembership[]
+  roles         RoleProfile[]
+  employees     Employee[]
+  departments   Department[]
+  teams         Team[]
+  jobTitles     JobTitle[]
+  leaveTypes    LeaveType[]
+  holidays      Holiday[]
+  jobOpenings   JobOpening[]
+  payouts       Payout[]
+  projects      Project[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model CompanyMembership {
+  id          String       @id @default(uuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId   String
+  company     Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  systemRole  Role         @default(EMPLOYEE)
+  roleId      String?
+  role        RoleProfile? @relation(fields: [roleId], references: [id])
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+
+  @@unique([userId, companyId])
+  @@index([companyId])
+}
+
+model RoleProfile {
+  id          String              @id @default(uuid())
+  companyId   String
+  company     Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  permissions String[]
+  isSystem    Boolean             @default(false)
+  memberships CompanyMembership[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@unique([companyId, name])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Employee {
+  id             String         @id @default(uuid())
+  employeeNumber String
+  companyId      String
+  company        Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  firstName      String
+  lastName       String
+  workEmail      String
+  personalEmail  String?
+  phone          String?
+  emergencyContactName String?
+  emergencyContactPhone String?
+  avatarUrl      String?
+  address        String?
+  city           String?
+  state          String?
+  postalCode     String?
+  country        String?
+  nationality    String?
+  gender         String?
+  maritalStatus  String?
+  bloodGroup     String?
+  dateOfBirth    DateTime?
+  taxIdentifier  String?
+  socialSecurityNumber String?
+  bankName       String?
+  bankAccountNumber String?
+  bankRoutingCode String?
+  passportNumber String?
+  passportExpiry DateTime?
+  startDate      DateTime
+  endDate        DateTime?
+  status         EmployeeStatus @default(ACTIVE)
+  userId         String?
+  user           User?          @relation(fields: [userId], references: [id])
+  departmentId   String?
+  department     Department?    @relation(fields: [departmentId], references: [id])
+  teamId         String?
+  team           Team?          @relation(fields: [teamId], references: [id])
+  jobTitleId     String?
+  jobTitle       JobTitle?      @relation(fields: [jobTitleId], references: [id])
+  managerId      String?
+  manager        Employee?      @relation("EmployeeManager", fields: [managerId], references: [id])
+  reports        Employee[]     @relation("EmployeeManager")
+  leaveRequests  LeaveRequest[] @relation("LeaveRequester")
+  approvals      LeaveRequest[] @relation("LeaveApprover")
+  leaveBalances  LeaveBalance[]
+  goals          Goal[]
+  reviews        Review[]       @relation("ReviewSubject")
+  salaryRecords  SalaryRecord[]
+  payouts        Payout[]
+  documents      Document[]
+  projectAssignments ProjectAssignment[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@unique([companyId, employeeNumber])
+  @@unique([companyId, workEmail])
+  @@index([companyId])
+  @@index([userId])
+  @@index([departmentId])
+  @@index([managerId])
+}
+
+model Project {
+  id          String              @id @default(uuid())
+  companyId   String
+  company     Company             @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name        String
+  code        String
+  description String?
+  clientName  String?
+  status      String              @default("ACTIVE")
+  startDate   DateTime?
+  endDate     DateTime?
+  assignments ProjectAssignment[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@unique([companyId, code])
+  @@index([companyId, status])
+}
+
+model ProjectAssignment {
+  id         String   @id @default(uuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  role       String?
+  allocation Int      @default(100)
+  startDate  DateTime?
+  endDate    DateTime?
+  createdAt  DateTime @default(now())
+
+  @@unique([projectId, employeeId])
+  @@index([employeeId])
+}
+
+model Department {
+  id        String     @id @default(uuid())
+  companyId String
+  company   Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name      String
+  code      String
+  employees Employee[]
+  teams     Team[]
+  jobs      JobOpening[]
+  createdAt DateTime   @default(now())
+
+  @@unique([companyId, name])
+  @@unique([companyId, code])
+}
+
+model Team {
+  id           String     @id @default(uuid())
+  name         String
+  companyId    String
+  company      Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+  employees    Employee[]
+
+  @@unique([name, departmentId])
+  @@index([companyId])
+}
+
+model JobTitle {
+  id        String     @id @default(uuid())
+  companyId String
+  company   Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name      String
+  level     String?
+  employees Employee[]
+
+  @@unique([companyId, name])
+}
+
+model Document {
+  id         String   @id @default(uuid())
+  name       String
+  type       String
+  url        String
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model LeaveType {
+  id              String         @id @default(uuid())
+  companyId       String
+  company         Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name            String
+  color           String         @default("#2F786C")
+  defaultAllowance Decimal        @db.Decimal(5, 1)
+  requests        LeaveRequest[]
+  balances        LeaveBalance[]
+
+  @@unique([companyId, name])
+}
+
+model LeaveBalance {
+  id          String    @id @default(uuid())
+  employeeId  String
+  employee    Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  leaveTypeId String
+  leaveType   LeaveType @relation(fields: [leaveTypeId], references: [id])
+  year        Int
+  allowance   Decimal   @db.Decimal(5, 1)
+  used        Decimal   @default(0) @db.Decimal(5, 1)
+
+  @@unique([employeeId, leaveTypeId, year])
+}
+
+model LeaveRequest {
+  id          String      @id @default(uuid())
+  employeeId  String
+  employee    Employee    @relation("LeaveRequester", fields: [employeeId], references: [id])
+  leaveTypeId String
+  leaveType   LeaveType   @relation(fields: [leaveTypeId], references: [id])
+  startDate   DateTime
+  endDate     DateTime
+  days        Decimal     @db.Decimal(5, 1)
+  reason      String
+  status      LeaveStatus @default(PENDING)
+  approverId  String?
+  approver    Employee?   @relation("LeaveApprover", fields: [approverId], references: [id])
+  decisionNote String?
+  decidedAt   DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([employeeId, status])
+}
+
+model Holiday {
+  id        String   @id @default(uuid())
+  name      String
+  date      DateTime
+  location  String?
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Goal {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  progress    Int        @default(0)
+  status      GoalStatus @default(ACTIVE)
+  dueDate     DateTime?
+  employeeId  String
+  employee    Employee   @relation(fields: [employeeId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  title       String
+  cycle       String
+  rating      Decimal? @db.Decimal(3, 2)
+  feedback    String?
+  employeeId  String
+  employee    Employee @relation("ReviewSubject", fields: [employeeId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model JobOpening {
+  id           String      @id @default(uuid())
+  title        String
+  location     String
+  employmentType String
+  status       JobStatus   @default(DRAFT)
+  companyId    String
+  company      Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  departmentId String
+  department   Department  @relation(fields: [departmentId], references: [id])
+  candidates   Candidate[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Candidate {
+  id           String          @id @default(uuid())
+  firstName    String
+  lastName     String
+  email        String
+  phone        String?
+  status       CandidateStatus @default(APPLIED)
+  currentStage String           @default("Application")
+  source       String?
+  notes        String?
+  jobOpeningId String
+  jobOpening   JobOpening      @relation(fields: [jobOpeningId], references: [id])
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@unique([email, jobOpeningId])
+}
+
+model SalaryRecord {
+  id          String   @id @default(uuid())
+  employeeId  String
+  employee    Employee @relation(fields: [employeeId], references: [id])
+  amount      Decimal  @db.Decimal(12, 2)
+  currency    String   @default("USD")
+  frequency   String   @default("ANNUAL")
+  effectiveFrom DateTime
+  effectiveTo DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model Payout {
+  id          String       @id @default(uuid())
+  companyId   String
+  company     Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  employeeId  String
+  employee    Employee     @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  amount      Decimal      @db.Decimal(12, 2)
+  currency    String       @default("USD")
+  type        String       @default("SALARY")
+  status      PayoutStatus @default(DRAFT)
+  scheduledFor DateTime
+  paidAt      DateTime?
+  reference   String?
+  note        String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([companyId, status])
+  @@index([employeeId])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  actor      User?    @relation("ActorAuditLogs", fields: [actorId], references: [id])
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+}

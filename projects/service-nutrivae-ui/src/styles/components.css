@@ -1,0 +1,87 @@
+@layer components {
+  .page {
+    @apply animate-in space-y-6;
+  }
+  .page-heading {
+    @apply mt-1 font-display text-3xl font-extrabold tracking-tight;
+  }
+  .page-description {
+    @apply mt-2 text-sm text-muted;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-white shadow-card;
+  }
+  .section-card {
+    @apply card overflow-hidden;
+  }
+  .section-card__header {
+    @apply flex items-center justify-between gap-4 border-b border-line p-5;
+  }
+  .section-card__body {
+    @apply p-5;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn text-white;
+    background: var(--theme-700);
+  }
+  .btn-primary:hover {
+    background: var(--theme-900);
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-white text-ink hover:bg-canvas;
+  }
+  .btn-danger {
+    @apply btn bg-red-50 text-red-700 hover:bg-red-100;
+  }
+  .input {
+    @apply h-11 w-full rounded-xl border border-line bg-white px-3.5 text-sm outline-none transition placeholder:text-slate-400 focus:ring-4;
+  }
+  .input:focus {
+    border-color: var(--theme-500);
+    --tw-ring-color: color-mix(in srgb, var(--theme-500) 12%, transparent);
+  }
+  select.input {
+    color-scheme: light;
+    background-color: var(--color-surface);
+  }
+  select.input option {
+    color: var(--color-ink);
+    background: var(--color-surface);
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+  .field-error {
+    @apply mt-1 text-xs text-red-600;
+  }
+  .form-grid {
+    @apply grid gap-4 sm:grid-cols-2;
+  }
+  .form-actions {
+    @apply flex justify-end gap-2 pt-2;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-muted;
+  }
+  .table-shell {
+    @apply overflow-x-auto;
+  }
+  .data-table {
+    @apply w-full min-w-[820px] text-left;
+  }
+  .data-table thead {
+    @apply bg-canvas/70 text-[11px] uppercase tracking-wider text-muted;
+  }
+  .data-table th {
+    @apply px-4 py-3 font-semibold;
+  }
+  .data-table tbody {
+    @apply divide-y divide-line;
+  }
+  .data-table td {
+    @apply px-4 py-4;
+  }
+}
