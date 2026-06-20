@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../../lib/api";
-import { Drawer } from "../ui";
+import { Drawer } from "..";
 import { ThemedSelect } from "../forms";
 
 type Employee = { id: string; firstName: string; lastName: string };

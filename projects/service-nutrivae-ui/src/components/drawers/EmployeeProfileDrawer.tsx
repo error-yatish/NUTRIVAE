@@ -1,4 +1,4 @@
-import { Avatar, Modal } from "../ui";
+import { Avatar, Drawer } from "..";
 
 type Employee = {
   firstName: string;

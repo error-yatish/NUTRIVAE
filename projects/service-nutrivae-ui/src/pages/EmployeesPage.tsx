@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { api } from "../lib/api";
-import { Avatar, Badge, Empty, Skeleton } from "../components/ui";
+import { Avatar, Badge, Empty, Skeleton } from "../components";
 import { EmployeeFormDrawer, EmployeeProfileDrawer } from "../components/drawers";
 import { useAuth } from "../lib/auth";
 import { downloadCsv } from "../lib/download";

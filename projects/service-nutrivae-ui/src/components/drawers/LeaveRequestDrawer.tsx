@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { leaveRequestSchema, type LeaveRequestInput } from "@nutrivae/shared";
 import { api } from "../../lib/api";
-import { Drawer } from "../ui";
+import { Drawer } from "..";
 import { DatePickerField, ThemedSelect } from "../forms";
 
 type LeaveType = { id: string; name: string; color: string };

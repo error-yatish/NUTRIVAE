@@ -1,10 +1,2 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { Badge } from "./ui";
-
-describe("Badge", () => {
-  it("renders its label", () => {
-    render(<Badge tone="green">active</Badge>);
-    expect(screen.getByText("active")).toBeInTheDocument();
-  });
-});
+// Tests moved to individual component test files
+// See Badge.test.tsx for Badge component tests

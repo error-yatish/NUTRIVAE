@@ -1,4 +1,4 @@
-import { Drawer } from "../ui";
+import { Drawer } from "..";
 import { ThemedSelect } from "../forms";
 
 type SettingsDrawerProps = {

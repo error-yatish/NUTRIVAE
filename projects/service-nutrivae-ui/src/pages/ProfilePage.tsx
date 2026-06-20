@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Mail, CalendarDays, Building2, BriefcaseBusiness, WalletCards, Target } from "lucide-react";
 import { api } from "../lib/api";
-import { Avatar, Badge, Skeleton } from "../components/ui";
+import { Avatar, Badge, Skeleton } from "../components";
 import { useAuth } from "../lib/auth";
 
 type Profile = {

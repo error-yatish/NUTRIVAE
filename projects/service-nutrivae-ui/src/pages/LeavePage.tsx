@@ -27,7 +27,7 @@ import {
 } from "date-fns";
 import { useState } from "react";
 import { api } from "../lib/api";
-import { Avatar, Badge, Skeleton } from "../components/ui";
+import { Avatar, Badge, Skeleton } from "../components";
 import { LeaveRequestDrawer } from "../components/drawers";
 import { useAuth } from "../lib/auth";
 import { DatePickerField } from "../components/forms";

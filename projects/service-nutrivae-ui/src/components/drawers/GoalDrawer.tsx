@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { goalSchema, type GoalInput } from "@nutrivae/shared";
 import { api } from "../../lib/api";
-import { Drawer } from "../ui";
+import { Drawer } from "..";
 import { ThemedSelect } from "../forms";
 
 export function GoalDrawer({

@@ -1,4 +1,4 @@
-import { Drawer } from "../ui";
+import { Drawer } from "..";
 import { FormField, TextAreaField, ThemedSelect } from "../forms";
 
 type ProjectForm = {

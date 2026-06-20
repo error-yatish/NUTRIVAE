@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FolderKanban, Plus, UserPlus, Users } from "lucide-react";
 import { useState } from "react";
 import { api } from "../lib/api";
-import { Avatar, Badge } from "../components/ui";
+import { Avatar, Badge } from "../components";
 import { FormField, PageHeader, TextAreaField } from "../components";
 import { ProjectAssignDrawer, ProjectCreateDrawer } from "../components/drawers";
 import { useAuth } from "../lib/auth";

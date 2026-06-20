@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { employeeSchema, type EmployeeInput } from "@nutrivae/shared";
 import { api } from "../../lib/api";
-import { Drawer } from "../ui";
+import { Drawer } from "..";
 import { DatePickerField, FormField, ThemedSelect } from "../forms";
 
 type Meta = {

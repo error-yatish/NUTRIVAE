@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { clsx } from "clsx";
-import { Avatar } from "./ui";
+import { Avatar } from ".";
 import { useAuth } from "../lib/auth";
 import { ThemedSelect } from "./forms";
 import { useQuery } from "@tanstack/react-query";
