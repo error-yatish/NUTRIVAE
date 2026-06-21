@@ -39,11 +39,9 @@ function toAuthUser(user: UserWithAccess, requestedCompanyId?: string): AuthUser
     permissions: membership.role?.permissions ?? [],
     companyId: membership.companyId,
     companyName: membership.company.name,
-    companyTheme: membership.company.theme,
     companies: user.memberships.map((item) => ({
       id: item.companyId,
-      name: item.company.name,
-      theme: item.company.theme
+      name: item.company.name
     })),
     employeeId: employee?.id,
     name: employee ? `${employee.firstName} ${employee.lastName}` : user.email

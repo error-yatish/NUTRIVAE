@@ -149,12 +149,12 @@ export function ThemedSelect({
         onKeyDown={handleKeyDown}
         onClick={() => setOpen((current) => !current)}
         className={clsx(
-          "flex w-full items-center justify-between gap-3 rounded-xl border text-left outline-none transition disabled:cursor-not-allowed disabled:opacity-50",
+          "flex w-full items-center justify-between gap-3 rounded-field border text-left outline-none transition disabled:cursor-not-allowed disabled:opacity-50",
           variant === "sidebar"
             ? "min-h-10 border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:border-white/25 hover:bg-white/15 focus:ring-2 focus:ring-white/20"
-            : "h-11 border-line bg-white px-3.5 text-sm hover:border-brand-500 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10",
+            : "h-11 border-line bg-white px-3.5 text-sm hover:border-brand-500 focus:border-brand-500 focus:ring-2 focus:ring-primary",
           open && variant === "sidebar" && "border-white/30 bg-white/15",
-          open && variant === "default" && "border-brand-500 ring-4 ring-brand-500/10"
+          open && variant === "default" && "border-brand-500 ring-2 ring-primary"
         )}
       >
         <span className={clsx("min-w-0 flex-1 truncate", !selected && "opacity-60")}>
@@ -175,7 +175,7 @@ export function ThemedSelect({
             role="listbox"
             aria-activedescendant={`${listboxId}-${activeIndex}`}
             onMouseDown={(e) => e.stopPropagation()}
-            className="fixed z-[120] overflow-y-auto overscroll-contain rounded-xl border border-line bg-white p-1.5 text-ink shadow-[0_18px_50px_rgba(23,33,31,0.18)] animate-in"
+            className="fixed z-[120] overflow-y-auto overscroll-contain rounded-field border border-line bg-white p-1.5 text-ink shadow-[0_18px_50px_rgba(23,33,31,0.18)] animate-in"
             style={{
               left: menuPosition.left,
               top: menuPosition.top,
@@ -197,9 +197,9 @@ export function ThemedSelect({
                   onMouseEnter={() => setActiveIndex(index)}
                   onClick={() => selectOption(option)}
                   className={clsx(
-                    "flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left text-sm outline-none transition disabled:cursor-not-allowed disabled:opacity-40",
-                    index === activeIndex && "bg-brand-50",
-                    option.value === value && "text-brand-900"
+                    "flex w-full items-start gap-3 rounded-field px-3 py-2.5 text-left text-sm outline-none transition disabled:cursor-not-allowed disabled:opacity-40",
+                    index === activeIndex && "bg-base-300",
+                    option.value === value && "text-brand-200"
                   )}
                 >
                   <span className="min-w-0 flex-1">

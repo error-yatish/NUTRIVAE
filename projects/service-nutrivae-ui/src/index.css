@@ -6,10 +6,13 @@
 
 @layer base {
   * {
-    @apply border-line;
+    @apply border-base-300;
+  }
+  html {
+    @apply bg-base-200;
   }
   body {
-    @apply m-0 bg-canvas font-sans text-ink antialiased;
+    @apply m-0 bg-base-200 font-sans text-base-content antialiased;
   }
   button,
   input,
@@ -18,42 +21,27 @@
     font: inherit;
   }
   ::selection {
-    background: var(--theme-100);
-    color: var(--theme-900);
+    background: var(--color-primary);
+    color: var(--color-primary-content);
   }
 }
-.bg-brand-50 {
-  background-color: var(--theme-50) !important;
+
+/* Compatibility for existing pages while they consume the semantic component layer. */
+.bg-white {
+  background-color: var(--color-base-100) !important;
 }
-.bg-brand-100 {
-  background-color: var(--theme-100) !important;
+.bg-slate-50,
+.bg-slate-100 {
+  background-color: var(--color-base-200) !important;
 }
-.bg-brand-500 {
-  background-color: var(--theme-500) !important;
+.text-slate-400,
+.text-slate-500,
+.text-slate-600 {
+  color: var(--color-muted) !important;
 }
-.bg-brand-600 {
-  background-color: var(--theme-600) !important;
-}
-.bg-brand-700 {
-  background-color: var(--theme-700) !important;
-}
-.bg-brand-900 {
-  background-color: var(--theme-900) !important;
-}
-.text-brand-500 {
-  color: var(--theme-500) !important;
-}
-.text-brand-600 {
-  color: var(--theme-600) !important;
-}
-.text-brand-700 {
-  color: var(--theme-700) !important;
-}
-.text-brand-900 {
-  color: var(--theme-900) !important;
-}
-.border-brand-500 {
-  border-color: var(--theme-500) !important;
+.border-slate-200,
+.border-slate-300 {
+  border-color: var(--color-base-300) !important;
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;

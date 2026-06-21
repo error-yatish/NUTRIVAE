@@ -3,59 +3,67 @@
     @apply animate-in space-y-6;
   }
   .page-heading {
-    @apply mt-1 font-display text-3xl font-extrabold tracking-tight;
+    @apply mt-1 font-display text-3xl font-bold tracking-tight text-base-content;
   }
   .page-description {
     @apply mt-2 text-sm text-muted;
   }
   .card {
-    @apply rounded-2xl border border-line bg-white shadow-card;
+    @apply border border-base-300 bg-base-100 text-base-content;
+    border-radius: var(--radius-box);
+    box-shadow: var(--shadow-card);
   }
   .section-card {
     @apply card overflow-hidden;
   }
   .section-card__header {
-    @apply flex items-center justify-between gap-4 border-b border-line p-5;
+    @apply flex items-center justify-between gap-4 border-b border-base-300 p-5;
   }
   .section-card__body {
     @apply p-5;
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 border px-4 py-2 text-sm font-semibold transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-100 disabled:pointer-events-none disabled:opacity-50;
+    border-radius: var(--radius-field);
+  }
+  .btn:hover:not(:disabled) {
+    box-shadow: var(--shadow-control);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: none;
   }
   .btn-primary {
-    @apply btn text-white;
-    background: var(--theme-700);
-  }
-  .btn-primary:hover {
-    background: var(--theme-900);
+    @apply btn border-neutral bg-neutral text-neutral-content hover:brightness-110;
   }
   .btn-secondary {
-    @apply btn border border-line bg-white text-ink hover:bg-canvas;
+    @apply btn border-base-300 bg-base-100 text-base-content hover:bg-base-200;
   }
-  .btn-danger {
-    @apply btn bg-red-50 text-red-700 hover:bg-red-100;
+  .btn-ghost {
+    @apply btn border-transparent bg-transparent text-base-content hover:bg-base-200;
   }
-  .input {
-    @apply h-11 w-full rounded-xl border border-line bg-white px-3.5 text-sm outline-none transition placeholder:text-slate-400 focus:ring-4;
+  .btn-danger,
+  .btn-error {
+    @apply btn border-error bg-error text-error-content hover:brightness-105;
   }
-  .input:focus {
-    border-color: var(--theme-500);
-    --tw-ring-color: color-mix(in srgb, var(--theme-500) 12%, transparent);
+  .input,
+  .select,
+  .textarea {
+    @apply w-full border border-base-300 bg-base-100 px-3.5 text-sm text-base-content outline-none transition placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary;
+    border-radius: var(--radius-field);
   }
-  select.input {
-    color-scheme: light;
-    background-color: var(--color-surface);
+  .input,
+  .select {
+    @apply h-11;
   }
-  select.input option {
-    color: var(--color-ink);
-    background: var(--color-surface);
+  .textarea {
+    @apply min-h-24 py-3;
   }
   .label {
-    @apply mb-1.5 block text-sm font-semibold text-ink;
+    @apply mb-1.5 block text-sm font-semibold text-base-content;
   }
   .field-error {
-    @apply mt-1 text-xs text-red-600;
+    @apply mt-1 text-xs text-error;
   }
   .form-grid {
     @apply grid gap-4 sm:grid-cols-2;
@@ -66,6 +74,13 @@
   .eyebrow {
     @apply text-xs font-semibold uppercase tracking-[0.14em] text-muted;
   }
+  .badge {
+    @apply inline-flex min-h-6 items-center rounded-full border border-transparent px-2.5 py-0.5 text-xs font-semibold;
+  }
+  .theme-toggle {
+    @apply grid h-10 w-10 place-items-center border border-base-300 bg-base-100 text-base-content transition hover:bg-base-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+    border-radius: var(--radius-field);
+  }
   .table-shell {
     @apply overflow-x-auto;
   }
@@ -73,13 +88,16 @@
     @apply w-full min-w-[820px] text-left;
   }
   .data-table thead {
-    @apply bg-canvas/70 text-[11px] uppercase tracking-wider text-muted;
+    @apply bg-base-200 text-[11px] uppercase tracking-wider text-muted;
   }
   .data-table th {
     @apply px-4 py-3 font-semibold;
   }
   .data-table tbody {
-    @apply divide-y divide-line;
+    @apply divide-y divide-base-300;
+  }
+  .data-table tr {
+    @apply transition-colors hover:bg-base-200;
   }
   .data-table td {
     @apply px-4 py-4;

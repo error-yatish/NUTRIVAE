@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Building2, BriefcaseBusiness, ShieldCheck, Palette, Plus } from "lucide-react";
+import { Building2, BriefcaseBusiness, ShieldCheck, Plus } from "lucide-react";
 import { useState } from "react";
 import { api } from "@/lib/api";
 import {
@@ -17,7 +17,6 @@ type Organization = {
     id: string;
     name: string;
     slug: string;
-    theme: string;
     currency: string;
     country: string;
     timezone: string;
@@ -69,8 +68,7 @@ export function SettingsPage() {
         country: form.country || "United States",
         timezone: form.timezone || "America/New_York",
         legalName: form.legalName,
-        email: form.email,
-        theme: form.theme || "blue"
+        email: form.email
       });
     },
     onSuccess: (result) => {
@@ -80,10 +78,6 @@ export function SettingsPage() {
       }
       refresh();
     }
-  });
-  const theme = useMutation({
-    mutationFn: (value: string) => api.patch("/company", { theme: value }),
-    onSuccess: () => window.location.reload()
   });
   const updateCompany = useMutation({
     mutationFn: () => api.patch("/company", companyProfile),
@@ -115,38 +109,6 @@ export function SettingsPage() {
             })) ?? []
           }
         />
-        <div className="card p-5">
-          <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-700">
-              <Palette size={18} />
-            </span>
-            <div>
-              <h2 className="font-display font-bold">Workspace theme</h2>
-              <p className="text-xs text-muted">Slack-style company color presets</p>
-            </div>
-          </div>
-          <div className="mt-5 flex flex-wrap gap-3">
-            {["emerald", "blue", "pink", "violet", "orange"].map((color) => (
-              <button
-                aria-label={`${color} theme`}
-                key={color}
-                onClick={() => theme.mutate(color)}
-                className={`h-10 w-10 rounded-full ring-offset-2 ${data?.company.theme === color ? "ring-2 ring-ink" : ""}`}
-                style={{
-                  background: (
-                    {
-                      emerald: "#285f57",
-                      blue: "#2563eb",
-                      pink: "#db2777",
-                      violet: "#7c3aed",
-                      orange: "#ea580c"
-                    } as Record<string, string>
-                  )[color]
-                }}
-              />
-            ))}
-          </div>
-        </div>
         <div className="card p-5 lg:col-span-2">
           <div className="mb-5">
             <h2 className="font-display font-bold">Company profile and localization</h2>

@@ -12,7 +12,7 @@ export function Avatar({ name, size = "md" }: AvatarProps) {
   return (
     <span
       className={clsx(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-brand-100 font-bold text-brand-700",
+        "inline-flex shrink-0 items-center justify-center rounded-full bg-brand-500 font-bold text-brand-700",
         size === "sm" && "h-8 w-8 text-[11px]",
         size === "md" && "h-10 w-10 text-xs",
         size === "lg" && "h-12 w-12 text-sm"

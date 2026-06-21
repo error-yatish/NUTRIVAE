@@ -13,7 +13,9 @@ import {
   HelpCircle,
   LogOut,
   UserRound,
-  FolderKanban
+  FolderKanban,
+  Moon,
+  Sun
 } from "lucide-react";
 import { useState } from "react";
 import { clsx } from "clsx";
@@ -23,6 +25,7 @@ import { ThemedSelect } from "@/components/forms";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { navigationItems } from "@/common/constants/navigation";
+import { useTheme } from "@/lib/theme";
 
 const navigation = navigationItems;
 
@@ -32,6 +35,7 @@ export function Layout() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const { user, logout, switchCompany } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const visibleNavigation =
@@ -89,7 +93,7 @@ export function Layout() {
               clsx(
                 "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition",
                 isActive
-                  ? "bg-white text-brand-900 shadow-sm"
+                  ? "bg-primary text-primary-content shadow-sm"
                   : "text-white/65 hover:bg-white/8 hover:text-white"
               )
             }
@@ -162,7 +166,7 @@ export function Layout() {
         </div>
       )}
       <div className="min-w-0 flex-1 lg:pl-[248px]">
-        <header className="sticky top-0 z-30 flex h-[72px] items-center gap-4 border-b border-line bg-white/90 px-4 backdrop-blur-xl sm:px-7">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-line bg-base-100 px-4 backdrop-blur-xl sm:px-7">
           <button className="rounded-lg p-2 lg:hidden" onClick={() => setMobileOpen(true)}>
             <Menu />
           </button>
@@ -178,16 +182,25 @@ export function Layout() {
             <input
               value={globalSearch}
               onChange={(event) => setGlobalSearch(event.target.value)}
-              className="h-10 w-full rounded-xl bg-canvas pl-10 pr-3 text-sm outline-none ring-brand-500/20 focus:ring-2"
-              placeholder="Search people…"
+              className="h-10 w-full rounded-field border border-line bg-white pl-10 pr-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary"
+              placeholder="Search people..."
             />
           </form>
           <div className="ml-auto flex items-center gap-2">
+            <button
+              type="button"
+              aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+              title={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+              onClick={toggleTheme}
+              className="theme-toggle"
+            >
+              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
             <div className="relative">
               <button
                 aria-label="Notifications"
                 onClick={() => setNotificationsOpen((current) => !current)}
-                className="relative rounded-xl border border-line p-2.5 text-muted hover:bg-canvas"
+                className="relative grid h-10 w-10 place-items-center rounded-field border border-line bg-white text-muted transition hover:bg-canvas hover:text-ink"
               >
                 <Bell size={18} />
                 {(notifications.data?.data.length ?? 0) > 0 && (

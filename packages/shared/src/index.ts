@@ -156,8 +156,7 @@ export interface AuthUser {
   permissions: string[];
   companyId: string;
   companyName: string;
-  companyTheme: string;
-  companies: Array<{ id: string; name: string; theme: string }>;
+  companies: Array<{ id: string; name: string }>;
   employeeId?: string | null;
   name: string;
 }

@@ -22,9 +22,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .catch(() => tokenStore.clear())
       .finally(() => setLoading(false));
   }, []);
-  useEffect(() => {
-    document.documentElement.dataset.theme = user?.companyTheme ?? "emerald";
-  }, [user?.companyTheme]);
   const value = useMemo(
     () => ({
       user,
