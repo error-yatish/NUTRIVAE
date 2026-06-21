@@ -5,7 +5,7 @@ import { api } from "@/lib/api";
 import { countryOptions, currencyOptions, permissions, timezoneOptions } from "@/modules/settings/constants";
 import { SettingsDrawer } from "@/modules/settings/drawers";
 import { useAuth } from "@/lib/auth";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 
 type Organization = {
   company: {
@@ -137,19 +137,19 @@ export function SettingsPage() {
                   }
                 />
               </div>
-              <ThemedSelect
+              <Select
                 label="Country"
                 value={companyProfile.country ?? data?.company.country}
                 options={countryOptions}
                 onChange={(country) => setCompanyProfile({ ...companyProfile, country })}
               />
-              <ThemedSelect
+              <Select
                 label="Currency"
                 value={companyProfile.currency ?? data?.company.currency}
                 options={currencyOptions}
                 onChange={(currency) => setCompanyProfile({ ...companyProfile, currency })}
               />
-              <ThemedSelect
+              <Select
                 label="Timezone"
                 value={companyProfile.timezone ?? data?.company.timezone}
                 options={timezoneOptions}

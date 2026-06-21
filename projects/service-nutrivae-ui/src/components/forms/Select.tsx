@@ -4,16 +4,16 @@ import { createPortal } from "react-dom";
 import { clsx } from "clsx";
 import { useClickOutside } from "@/common/hooks/useClickOutside";
 
-export interface ThemedSelectOption {
+export interface SelectOption {
   value: string;
   label: string;
   description?: string;
   disabled?: boolean;
 }
 
-export interface ThemedSelectProps {
+export interface SelectProps {
   value?: string;
-  options: ThemedSelectOption[];
+  options: SelectOption[];
   onChange: (value: string) => void;
   placeholder?: string;
   label?: string;
@@ -30,7 +30,7 @@ interface MenuPosition {
   maxHeight: number;
 }
 
-export function ThemedSelect({
+export function Select({
   value,
   options,
   onChange,
@@ -39,7 +39,7 @@ export function ThemedSelect({
   className,
   variant = "default",
   disabled = false
-}: ThemedSelectProps) {
+}: SelectProps) {
   const listboxId = useId();
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -74,7 +74,7 @@ export function ThemedSelect({
     });
   }, [variant]);
 
-  const selectOption = (option: ThemedSelectOption) => {
+  const selectOption = (option: SelectOption) => {
     if (option.disabled) return;
     onChange(option.value);
     setOpen(false);

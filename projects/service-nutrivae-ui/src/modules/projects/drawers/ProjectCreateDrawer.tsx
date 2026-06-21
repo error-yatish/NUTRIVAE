@@ -1,5 +1,5 @@
 import { Drawer } from "@/components";
-import { FormField, TextAreaField, ThemedSelect } from "@/components/forms";
+import { FormField, TextAreaField, Select } from "@/components/forms";
 import { projectStatusOptions } from "@/modules/projects/constants";
 
 type ProjectForm = {
@@ -58,7 +58,7 @@ export function ProjectCreateDrawer({
           value={projectForm.description}
           onChange={(event) => onChange({ ...projectForm, description: event.target.value })}
         />
-        <ThemedSelect
+        <Select
           label="Status"
           placeholder="Choose status"
           value={projectForm.status}

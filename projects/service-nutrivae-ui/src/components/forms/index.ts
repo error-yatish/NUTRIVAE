@@ -5,7 +5,7 @@ export { TextAreaField, type TextAreaFieldProps } from "@/components/forms/TextA
 export { DatePicker, type DatePickerProps } from "@/components/forms/DatePicker";
 export { DatePickerField, type DatePickerFieldProps } from "@/components/forms/DatePickerField";
 export {
-  ThemedSelect,
-  type ThemedSelectOption,
-  type ThemedSelectProps
-} from "@/components/forms/ThemedSelect";
+  Select,
+  type SelectOption,
+  type SelectProps
+} from "@/components/forms/Select";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { Drawer } from "@/components";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 import { payoutTypeOptions } from "@/modules/payouts/constants";
 
 type Employee = { id: string; firstName: string; lastName: string };
@@ -56,7 +56,7 @@ export function PayoutScheduleDrawer({
           mutation.mutate();
         }}
       >
-        <ThemedSelect
+        <Select
           label="Employee"
           placeholder="Choose employee"
           value={form.employeeId}
@@ -92,7 +92,7 @@ export function PayoutScheduleDrawer({
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <ThemedSelect
+          <Select
             label="Type"
             placeholder="Choose type"
             value={form.type}

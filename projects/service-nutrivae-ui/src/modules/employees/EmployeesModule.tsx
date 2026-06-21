@@ -19,7 +19,7 @@ import { Avatar, Badge, Empty, Skeleton } from "@/components";
 import { EmployeeFormDrawer, EmployeeProfileDrawer } from "@/modules/employees/drawers";
 import { useAuth } from "@/lib/auth";
 import { downloadCsv } from "@/lib/download";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 
 type Employee = {
   id: string;
@@ -151,7 +151,7 @@ export function EmployeesPage() {
               size={15}
               className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted"
             />
-            <ThemedSelect
+            <Select
               value={department}
               placeholder="All departments"
               options={[{ value: "", label: "All departments" }].concat(

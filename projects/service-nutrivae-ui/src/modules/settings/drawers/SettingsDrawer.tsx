@@ -1,5 +1,5 @@
 import { Drawer } from "@/components";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 
 type SettingsDrawerProps = {
   open: boolean;
@@ -93,20 +93,20 @@ export function SettingsDrawer({
               />
             </div>
             <div>
-              <ThemedSelect
+              <Select
                 label="Country"
                 value={form.country ?? "United States"}
                 options={countryOptions}
                 onChange={(country) => onFormChange({ ...form, country })}
               />
             </div>
-            <ThemedSelect
+            <Select
               label="Currency"
               value={form.currency ?? "USD"}
               options={currencyOptions}
               onChange={(currency) => onFormChange({ ...form, currency })}
             />
-            <ThemedSelect
+            <Select
               label="Timezone"
               value={form.timezone ?? "America/New_York"}
               options={timezoneOptions}

@@ -25,7 +25,7 @@ import { useState } from "react";
 import { clsx } from "clsx";
 import { Avatar } from "@/components";
 import { useAuth } from "@/lib/auth";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { navigationItems } from "@/common/constants/navigation";
@@ -80,7 +80,7 @@ export function Layout() {
         <span className="mb-1 block px-2 text-[9px] font-bold uppercase tracking-wider text-muted">
           Selected company
         </span>
-        <ThemedSelect
+        <Select
           variant="sidebar"
           value={user?.companyId}
           options={(user?.companies ?? []).map((company) => ({

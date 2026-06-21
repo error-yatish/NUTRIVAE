@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { employeeSchema, type EmployeeInput } from "@nutrivae/shared";
 import { api } from "@/lib/api";
 import { Drawer, Tabs } from "@/components";
-import { DatePickerField, FormField, ThemedSelect } from "@/components/forms";
+import { DatePickerField, FormField, Select } from "@/components/forms";
 import {
   employeeBloodGroupOptions,
   employeeGenderOptions,
@@ -144,7 +144,7 @@ export function EmployeeFormDrawer({
               control={control}
               name="departmentId"
               render={({ field }) => (
-                <ThemedSelect
+                <Select
                   label="Department"
                   placeholder="Select department"
                   value={field.value}
@@ -160,7 +160,7 @@ export function EmployeeFormDrawer({
               control={control}
               name="jobTitleId"
               render={({ field }) => (
-                <ThemedSelect
+                <Select
                   label="Job title"
                   placeholder="Select job title"
                   value={field.value}
@@ -187,7 +187,7 @@ export function EmployeeFormDrawer({
               control={control}
               name="status"
               render={({ field }) => (
-                <ThemedSelect
+                <Select
                   label="Status"
                   value={field.value}
                   options={employeeStatusOptions}
@@ -218,7 +218,7 @@ export function EmployeeFormDrawer({
               control={control}
               name="gender"
               render={({ field }) => (
-                <ThemedSelect
+                <Select
                   label="Gender"
                   placeholder="Select gender"
                   value={field.value}
@@ -231,7 +231,7 @@ export function EmployeeFormDrawer({
               control={control}
               name="maritalStatus"
               render={({ field }) => (
-                <ThemedSelect
+                <Select
                   label="Marital status"
                   placeholder="Select marital status"
                   value={field.value}
@@ -245,7 +245,7 @@ export function EmployeeFormDrawer({
               control={control}
               name="bloodGroup"
               render={({ field }) => (
-                <ThemedSelect
+                <Select
                   label="Blood group"
                   placeholder="Select blood group"
                   value={field.value}

@@ -1,6 +1,6 @@
 import { Drawer } from "@/components";
 import { FormField } from "@/components";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 
 type AssignmentForm = {
   employeeId: string;
@@ -34,7 +34,7 @@ export function ProjectAssignDrawer({
           onSubmit();
         }}
       >
-        <ThemedSelect
+        <Select
           label="Employee"
           placeholder="Choose employee"
           value={assignmentForm.employeeId}

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { jobOpeningSchema, type JobOpeningInput } from "@nutrivae/shared";
 import { api } from "@/lib/api";
 import { Drawer } from "@/components";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 import { jobOpeningEmploymentTypeOptions, jobOpeningStatusOptions } from "@/modules/recruitment/constants";
 
 export function JobOpeningDrawer({
@@ -51,7 +51,7 @@ export function JobOpeningDrawer({
           control={control}
           name="departmentId"
           render={({ field }) => (
-            <ThemedSelect
+            <Select
               label="Department"
               placeholder="Choose a department"
               value={field.value}
@@ -75,7 +75,7 @@ export function JobOpeningDrawer({
             control={control}
             name="employmentType"
             render={({ field }) => (
-              <ThemedSelect
+              <Select
                 label="Employment type"
                 placeholder="Choose employment type"
                 value={field.value}
@@ -89,7 +89,7 @@ export function JobOpeningDrawer({
           control={control}
           name="status"
           render={({ field }) => (
-            <ThemedSelect
+            <Select
               label="Publishing status"
               placeholder="Choose status"
               value={field.value}

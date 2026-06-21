@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { leaveRequestSchema, type LeaveRequestInput } from "@nutrivae/shared";
 import { api } from "@/lib/api";
 import { Drawer } from "@/components";
-import { DatePickerField, ThemedSelect } from "@/components/forms";
+import { DatePickerField, Select } from "@/components/forms";
 
 type LeaveType = { id: string; name: string; color: string };
 
@@ -57,7 +57,7 @@ export function LeaveRequestDrawer({
           control={control}
           name="leaveTypeId"
           render={({ field }) => (
-            <ThemedSelect
+            <Select
               label="Leave type"
               placeholder="Choose a leave type"
               value={field.value}

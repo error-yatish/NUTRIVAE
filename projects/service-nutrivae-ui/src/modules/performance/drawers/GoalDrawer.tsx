@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { goalSchema, type GoalInput } from "@nutrivae/shared";
 import { api } from "@/lib/api";
 import { Drawer } from "@/components";
-import { ThemedSelect } from "@/components/forms";
+import { Select } from "@/components/forms";
 import { goalStatusOptions } from "@/modules/performance/constants";
 
 export function GoalDrawer({
@@ -48,7 +48,7 @@ export function GoalDrawer({
           control={control}
           name="employeeId"
           render={({ field }) => (
-            <ThemedSelect
+            <Select
               label="Owner"
               placeholder="Choose an employee"
               value={field.value}
@@ -76,7 +76,7 @@ export function GoalDrawer({
             control={control}
             name="status"
             render={({ field }) => (
-              <ThemedSelect
+              <Select
                 label="Status"
                 placeholder="Choose status"
                 value={field.value}
